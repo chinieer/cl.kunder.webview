@@ -27,7 +27,7 @@ Report issues on [github issue tracker](https://github.com/kunder-lab/cl.kunder.
 
 ## Installation
 ```
-    cordova plugin add https://github.com/kunder-lab/cl.kunder.webview.git
+    cordova plugin add https://github.com/chinieer/cl.kunder.webview.git
 ```
 
 ## Supported Platforms
