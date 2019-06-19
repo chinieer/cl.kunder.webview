@@ -41,27 +41,32 @@ NSArray* results;
 }
 
 - (void)show:(CDVInvokedUrlCommand*)command{
-  NSString* url=(NSString*)[command.arguments objectAtIndex:0];
-  NSLog(@"showwebViewView %@", url);
-  [self.commandDelegate runInBackground:^{
-    @try {
-      dispatch_async(dispatch_get_main_queue(), ^{
-          webViewController = [[WebViewController alloc] init];
-          webViewController.delegate = self; // esto es para poder recibir el evento de que webView se cerro
-          webViewController.startPage = url;
-          [self.viewController presentViewController:webViewController animated:YES completion:nil];
-      });
-
-      CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
-    @catch (NSException *exception) {
-      NSString* reason=[exception reason];
-      CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString: reason];
-      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
-  }];
+    NSString* url=(NSString*)[command.arguments objectAtIndex:0];
+    //BOOL isanimated = YES;
+    
+    BOOL isAnimated = [[command.arguments objectAtIndex:1] boolValue];
+    NSLog(@"------------- %@", isAnimated? @"Yes" : @"No");
+    NSLog(@"showwebViewView %@", url);
+    [self.commandDelegate runInBackground:^{
+        @try {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                webViewController = [[WebViewController alloc] init];
+                webViewController.delegate = self; // esto es para poder recibir el evento de que webView se cerro
+                webViewController.startPage = url;
+                [self.viewController presentViewController:webViewController animated:isAnimated completion:nil];
+            });
+            
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }
+        @catch (NSException *exception) {
+            NSString* reason=[exception reason];
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString: reason];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }
+    }];
 }
+
 
 - (void)hide:(CDVInvokedUrlCommand*)command{
   NSLog(@"hidewebViewView");

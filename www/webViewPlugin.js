@@ -1,39 +1,39 @@
 /*global cordova, module */
 'use strict';
-module.exports = (function() {
+module.exports = (function () {
 
 
-  var _show = function(url, successCallback, errorCallback, loading) {
-    if(loading){
-      cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'show', [url, loading]);
+  var _show = function (url, successCallback, errorCallback, loading) {
+    if (!loading) {
+      cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'show', [url, false]);
     }
-    else{
-      cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'show', [url]);
+    else {
+      cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'show', [url, loading]);
     }
   };
 
-  var _hide = function(successCallback, errorCallback, params) {
+  var _hide = function (successCallback, errorCallback, params) {
     cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'hide', params ? params : []);
   };
 
-  var _hideLoading = function(successCallback, errorCallback) {
+  var _hideLoading = function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'hideLoading', []);
   };
 
-  var _subscribeCallback = function(successCallback, errorCallback) {
+  var _subscribeCallback = function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'subscribeCallback', []);
   };
 
-  var _subscribeExitCallback = function(successCallback, errorCallback) {
+  var _subscribeExitCallback = function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, 'WebViewPlugin', 'subscribeExitCallback', []);
   };
 
-  var _exitApp = function() {
-    cordova.exec(function(){},function(){}, 'WebViewPlugin', 'exitApp', []);
+  var _exitApp = function () {
+    cordova.exec(function () { }, function () { }, 'WebViewPlugin', 'exitApp', []);
   };
 
-  var _setWebViewBehavior = function() {
-    cordova.exec(function(){},function(){}, 'WebViewPlugin', 'webViewAdjustmenBehavior', []);
+  var _setWebViewBehavior = function () {
+    cordova.exec(function () { }, function () { }, 'WebViewPlugin', 'webViewAdjustmenBehavior', []);
   };
 
   return {
