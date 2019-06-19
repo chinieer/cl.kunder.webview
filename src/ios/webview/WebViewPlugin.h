@@ -45,6 +45,8 @@ under the License.
 
 @interface WebViewController : CDVViewController
 {}
+ //fix 相册崩溃
+  @property (weak) UIViewController *lastPresentedController;
   @property (nonatomic, assign) id  delegate;
   - (void)viewDidDisappear:(BOOL)animated;
 @end

@@ -116,4 +116,20 @@ NSArray* results;
   [delegate webViewFinished];
   delegate = nil;
 }
+#fix 相册关闭崩溃
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
+{
+    // WKWebView actions sheets workaround
+    if (self.presentedViewController && self.lastPresentedController != self.presentedViewController ) {
+        self.lastPresentedController = self.presentedViewController;
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:^{
+            if( completion ) {
+                completion();
+            }
+            self.lastPresentedController = nil;
+        }];
+    } else if( !self.lastPresentedController) {
+        [super dismissViewControllerAnimated:flag completion:completion];
+    }
+}
 @end
