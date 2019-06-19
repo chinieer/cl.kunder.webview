@@ -121,7 +121,7 @@ NSArray* results;
   [delegate webViewFinished];
   delegate = nil;
 }
-#fix 相册关闭崩溃
+//fix 相册关闭崩溃
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
 {
     // WKWebView actions sheets workaround
